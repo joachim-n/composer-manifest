@@ -29,7 +29,9 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
    * @param \Composer\IO\IOInterface $io
    */
   public function activate(Composer $composer, IOInterface $io) {
-    include './vendor/symfony/var-dumper/Resources/functions/dump.php';
+    // Development: this makes symfony var-dumper work.
+    // See https://github.com/composer/composer/issues/7911
+    // include './vendor/symfony/var-dumper/Resources/functions/dump.php';
 
     $this->composer = $composer;
   }
