@@ -9,7 +9,7 @@
     ],
     "require": {
         "composer-plugin-api": "^1.0",
-        "symfony/yaml": "^4.2"
+        "symfony/yaml": "^3.4 || ^4.2"
     },
     "require-dev": {
         "composer/composer": "~1.0",
