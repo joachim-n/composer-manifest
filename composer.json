@@ -1,0 +1,26 @@
+{
+    "name": "joachim-n/composer-manifest",
+    "type": "composer-plugin",
+    "authors": [
+        {
+            "name": "Joachim Noreiko",
+            "email": "joachim@107701.no-reply.drupal.org"
+        }
+    ],
+    "require": {
+        "composer-plugin-api": "^1.0",
+        "symfony/yaml": "^4.2"
+    },
+    "require-dev": {
+        "composer/composer": "~1.0",
+        "symfony/var-dumper": "^4.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "ComposerManifest\\": ""
+        }
+    },
+    "extra": {
+        "class": "ComposerManifest\\Plugin"
+    }
+}
