@@ -64,7 +64,25 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
     $package_names = [];
     foreach ($packages as $package) {
-      $package_versions[$package->getName()] = $package->getPrettyVersion();
+      $pretty_version = $package->getPrettyVersion();
+      $output_version = $pretty_version;
+
+      // If the package is using a dev version, append the git commit SHA so
+      // that we can see changes to the actual version used.
+      // (No idea why it's sometimes a dev- prefix and sometimes a -dev suffix,
+      // but check for both.)
+      if (substr($pretty_version, 0, 4) == 'dev-' || substr($pretty_version, -4) == '-dev') {
+        $reference = $package->getSourceReference();
+
+        // Fall back to the dist reference if the source reference is empty.
+        if (empty($reference)) {
+          $reference = $package->getDistReference();
+        }
+
+        $output_version .= ':' . $reference;
+      }
+
+      $package_versions[$package->getName()] = $output_version;
     }
 
     $yaml_data = [
