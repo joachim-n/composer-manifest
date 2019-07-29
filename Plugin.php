@@ -85,7 +85,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
       $package_versions[$package->getName()] = $output_version;
     }
 
-    // Make sure the packages are sorted consistently.
+    // Make sure the packages are sorted consistently. We need this because in
+    // some cases, new packages are at the end of the list returned by
+    // getPackages() rather than in their correct place in the alphabetical
+    // order: WTF.
     ksort($package_versions);
 
     $yaml_data = [
