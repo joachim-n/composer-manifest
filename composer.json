@@ -8,11 +8,11 @@
         }
     ],
     "require": {
-        "composer-plugin-api": "^1.0",
+        "composer-plugin-api": "^1.0 || ^2.0",
         "symfony/yaml": "^3.4 || ^4.2"
     },
     "require-dev": {
-        "composer/composer": "~1.0",
+        "composer/composer": "^1.0 || ^2.0",
         "symfony/var-dumper": "^4.2"
     },
     "autoload": {
