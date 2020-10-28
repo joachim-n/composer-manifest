@@ -4,12 +4,9 @@ namespace ComposerManifest;
 
 use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
-use Composer\Installer\PackageEvent;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
-use Composer\Package\Link;
 use Composer\Plugin\PluginInterface;
-use Composer\Script\Event;
 use Composer\Script\ScriptEvents;
 use Composer\EventDispatcher\Event as BaseEvent;
 use Symfony\Component\Yaml\Yaml;
@@ -100,4 +97,19 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
     file_put_contents('composer-manifest.yaml', $yaml);
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public function deactivate(Composer $composer, IOInterface $io) {
+    // Do nothing.
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function uninstall(Composer $composer, IOInterface $io) {
+    if (file_exists('composer-manifest.yaml')) {
+      unlink('composer-manifest.yaml');
+    }
+  }
 }
