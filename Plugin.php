@@ -59,10 +59,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
     // $lock = $this->composer->getLocker()->getLockData();
     // $content_hash = $lock['content-hash'];
 
-    $package_names = [];
     foreach ($packages as $package) {
       $pretty_version = $package->getFullPrettyVersion(FALSE);
-      // BC use : instead of space.
+      // For backwards compatibility use ':' instead of space to separate
+      // friendly name from revision hash.
       $output_version = str_replace(' ', ':', $pretty_version);
       $package_versions[$package->getName()] = $output_version;
     }
