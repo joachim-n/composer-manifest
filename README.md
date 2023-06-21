@@ -24,3 +24,8 @@ Whenever packages are installed, updated, or removed, the plugin will update the
 composer-manifest.yaml file in your project root. You should commit this to
 version control at the same time as you commit changes to composer.json and
 composer.lock to keep a history of changes.
+
+### Integrations
+
+With [Renovate](https://github.com/renovatebot/renovate), use the fileFilters
+config option to ensure the manifest file is committed by the renovate bot.
