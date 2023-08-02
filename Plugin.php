@@ -6,6 +6,7 @@ use Composer\Composer;
 use Composer\EventDispatcher\EventSubscriberInterface;
 use Composer\Installer\PackageEvents;
 use Composer\IO\IOInterface;
+use Composer\Package\AliasPackage;
 use Composer\Plugin\PluginInterface;
 use Composer\Script\ScriptEvents;
 use Composer\EventDispatcher\Event as BaseEvent;
@@ -52,7 +53,12 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
   public function updateManifest(BaseEvent $event) {
     $repositoryManager = $this->composer->getRepositoryManager();
     $localRepository = $repositoryManager->getLocalRepository();
-    $packages = $localRepository->getPackages();
+    $packages = array_filter($localRepository->getPackages(), function ($package) {
+      // Only include real packages, not their aliases. This prevents
+      // inconsistent $packages order from causing variability in the
+      // manifest output.
+      return !($package instanceof AliasPackage);
+    });
 
     // TODO: do we want to include the lock hash? Not sure it's useful, and it's
     // a PITA in merge conflicts.
