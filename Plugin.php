@@ -17,11 +17,6 @@ use Symfony\Component\Yaml\Yaml;
 class Plugin implements PluginInterface, EventSubscriberInterface {
 
   /**
-   * @var \Composer\Composer $composer
-   */
-  protected $composer;
-
-  /**
    * @param \Composer\Composer $composer
    * @param \Composer\IO\IOInterface $io
    */
@@ -29,8 +24,6 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
     // Development: this makes symfony var-dumper work.
     // See https://github.com/composer/composer/issues/7911
     // include './vendor/symfony/var-dumper/Resources/functions/dump.php';
-
-    $this->composer = $composer;
   }
 
   /**
@@ -49,9 +42,10 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
    *
    * @param \Composer\EventDispatcher\Event $event
    */
-  public function updateManifest(BaseEvent $event) {
-    $repositoryManager = $this->composer->getRepositoryManager();
+  public static function updateManifest(BaseEvent $event) {
+    $repositoryManager = $event->getComposer()->getRepositoryManager();
     $localRepository = $repositoryManager->getLocalRepository();
+    $localRepository->reload();
     $packages = $localRepository->getPackages();
 
     // TODO: do we want to include the lock hash? Not sure it's useful, and it's
@@ -80,6 +74,7 @@ class Plugin implements PluginInterface, EventSubscriberInterface {
 
     $yaml = Yaml::dump($yaml_data);
     file_put_contents('composer-manifest.yaml', $yaml);
+    $event->getIO()->write('<info>Composer manifest updated!</info>');
   }
 
   /**
