@@ -43,11 +43,15 @@ Add the following post upgrade tasks to the `renovate.json` file. See
 {
   "postUpgradeTasks": {
     "commands": ["composer update-manifest"],
-    "fileFilters": ["composer-manifest.yaml"],
+    "fileFilters": ["**/composer-manifest.yaml"],
     "executionMode": "branch"
   }
 }
 ```
+Note: If your composer-file is located in a subfolder of your repository, 
+change the `commands`-line to sth like
+`cd apps/drupal && composer update-manifest` -- postUgradeTasks are
+executed at the root of the git-repository.
 
 Add the following script to the `composer.json` file. This way no extra
 resources are used for other event listeners.
@@ -65,6 +69,6 @@ See [Self-Hosted configuration options: allowedPostUpgradeCommands](https://docs
 
 ```json
 {
-  allowedPostUpgradeCommands: ['^composer update-manifest$']
+  allowedPostUpgradeCommands: ['composer update-manifest$']
 }
 ```
