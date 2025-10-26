@@ -12,6 +12,17 @@ diff of the changes to the composer.lock file is hard to read.
 This plugin writes a YAML file listing each package on one line, so a diff or
 log can show you exactly what has been changed.
 
+### Example:
+
+```yaml
+packages:
+    example/beta-version: 1.0.0-beta2
+    example/path-repository: dev-develop
+    example/specific-commit: 'dev-main:394dd58814320e136b5b24e900ba3e0a428b73a8'
+    example/stable-version: 2.8.12
+    joachim-n/composer-manifest: 1.1.7
+```
+
 ## Usage
 
 Install the plugin.
