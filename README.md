@@ -36,6 +36,30 @@ composer-manifest.yaml file in your project root. You should commit this to
 version control at the same time as you commit changes to composer.json and
 composer.lock to keep a history of changes.
 
+### Commands
+
+You can manually regenerate the manifest file at any time by running:
+
+```
+composer manifest:generate
+```
+
+(or using the alias `composer manifest`).
+
+### Validation
+
+When running `composer validate`, the plugin can validate that `composer-manifest.yaml` exists, is valid YAML, and is up to date with the installed packages.
+
+To enable this validation, configure `validate-manifest` in `composer.json` (defaults to `false`):
+
+```json
+{
+    "config": {
+        "validate-manifest": true
+    }
+}
+```
+
 ### Integrations
 
 With [Renovate](https://github.com/renovatebot/renovate), use the fileFilters
